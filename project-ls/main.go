@@ -1,11 +1,15 @@
 package main
 
 import (
+	"fmt"
 	"os"
+	"strings"
 )
 
 func main() {
 	// Your solution goes here. Good luck!
+	files := listFiles("testdata")
+	fmt.Println(strings.Join(files, " "))
 }
 
 func listFiles(dirname string) []string {
