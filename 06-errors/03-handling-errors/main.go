@@ -6,7 +6,8 @@ import (
 )
 
 func CreateDirectory(name string) bool {
-	os.Mkdir(name, 0755)
+	err := os.Mkdir(name, 0755)
+	return err == nil
 }
 
 func main() {
