@@ -4,13 +4,14 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strings"
 )
 
 func main() {
 	// Your solution goes here. Good luck!
 	files := listFiles("testdata")
-	fmt.Println(strings.Join(files, " "))
+	for _, file := range files {
+		fmt.Println(file)
+	}
 }
 
 func listFiles(dirname string) []string {
