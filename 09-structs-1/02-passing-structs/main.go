@@ -2,6 +2,10 @@ package main
 
 import "fmt"
 
+func Area(rect Rectangle) int {
+	return rect.Length * rect.Width
+}
+
 func main() {
 	rect := Rectangle{
 		Width:  10,
