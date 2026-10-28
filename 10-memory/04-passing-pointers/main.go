@@ -17,7 +17,7 @@ func main() {
 	fmt.Println(addresses)
 }
 
-func Deduplicate() {
+func Deduplicate(addresses *[]string) {
 	m := map[string]bool{}
 
 	for _, a := range *addresses {
@@ -28,4 +28,5 @@ func Deduplicate() {
 	for k := range m {
 		keys = append(keys, k)
 	}
+	*addresses = keys
 }
