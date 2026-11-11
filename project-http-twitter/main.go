@@ -8,6 +8,12 @@ import (
 	"net/http"
 )
 
+var id int = 1
+
+type tweetResponse struct {
+	ID int `json:"ID"`
+}
+
 type tweetPayload struct {
 	Message  string `json:"message"`
 	Location string `json:"location"`
@@ -36,6 +42,13 @@ func tweets(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Printf("Tweet: `%s` from %s\n", t.Message, t.Location)
+	payload, err := json.Marshal(tweetResponse{ID: id})
+	if err != nil {
+		log.Println("Failed to marshal:", err)
+		w.WriteHeader(http.StatusInternalServerError)
+	}
+
+	w.Write(payload)
 }
 
 func main() {
