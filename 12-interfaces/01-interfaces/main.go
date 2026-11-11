@@ -5,7 +5,7 @@ type User struct {
 }
 
 type Storage interface {
-	Store(user User)
+	Store(User)
 }
 
 func NewUser(name string, storage Storage) User {
