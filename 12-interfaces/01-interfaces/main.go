@@ -4,7 +4,11 @@ type User struct {
 	Name string
 }
 
-func NewUser(name string, storage MapStorage) User {
+type Storage interface {
+	Store(user User)
+}
+
+func NewUser(name string, storage Storage) User {
 	user := User{Name: name}
 	storage.Store(user)
 	return user
