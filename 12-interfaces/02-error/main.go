@@ -15,6 +15,10 @@ type MemoryStorage struct {
 	users []User
 }
 
+func (user UserNotFoundError) Error() string {
+	return fmt.Sprintf("user not found: %v", user.ID)
+}
+
 func (m MemoryStorage) FindUser(id int) (User, error) {
 	for _, u := range m.users {
 		if u.ID == id {
