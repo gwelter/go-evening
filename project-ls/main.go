@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -9,13 +10,16 @@ import (
 
 func main() {
 	// Your solution goes here. Good luck!
-	files := listFiles("testdata")
+	showHidden := flag.Bool("a", true, "Show hidden files")
+	flag.Parse()
+
+	files := listFiles("testdata", *showHidden)
 	for _, file := range files {
 		fmt.Println(file)
 	}
 }
 
-func listFiles(dirname string) []string {
+func listFiles(dirname string, showHidden bool) []string {
 	var dirs []string
 
 	files, err := os.ReadDir(dirname)
@@ -24,7 +28,7 @@ func listFiles(dirname string) []string {
 	}
 
 	for _, f := range files {
-		if strings.HasPrefix(f.Name(), ".") {
+		if !showHidden && strings.HasPrefix(f.Name(), ".") {
 			continue
 		}
 		dirs = append(dirs, f.Name())
