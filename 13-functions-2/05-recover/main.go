@@ -20,4 +20,12 @@ func Divide(x, y float64) float64 {
 }
 
 func RunSafely(f func()) (err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = fmt.Errorf("Recoved from panic: %v", r)
+		}
+	}()
+
+	f()
+	return
 }
