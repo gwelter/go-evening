@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -23,6 +24,9 @@ func listFiles(dirname string) []string {
 	}
 
 	for _, f := range files {
+		if strings.HasPrefix(f.Name(), ".") {
+			continue
+		}
 		dirs = append(dirs, f.Name())
 	}
 
