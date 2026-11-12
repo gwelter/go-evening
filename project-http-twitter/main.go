@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"time"
 )
 
 type tweetResponse struct {
@@ -99,6 +100,12 @@ func (s server) listTweets(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s server) tweets(w http.ResponseWriter, r *http.Request) {
+	start := time.Now()
+	defer func() {
+		duration := time.Since(start)
+		fmt.Printf("%s %s %s\n", r.Method, r.URL, duration)
+	}()
+
 	if r.Method == http.MethodPost {
 		s.addTweet(w, r)
 	} else if r.Method == http.MethodGet {
