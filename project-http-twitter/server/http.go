@@ -6,7 +6,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"time"
 )
 
 type tweetResponse struct {
@@ -22,7 +21,7 @@ type tweetsList struct {
 	Tweets []tweet `json:"tweets"`
 }
 
-func (s Server) addTweet(w http.ResponseWriter, r *http.Request) {
+func (s Server) AddTweet(w http.ResponseWriter, r *http.Request) {
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		log.Println("Failed to read body:", err)
@@ -63,7 +62,7 @@ func (s Server) addTweet(w http.ResponseWriter, r *http.Request) {
 	w.Write(payload)
 }
 
-func (s Server) listTweets(w http.ResponseWriter, r *http.Request) {
+func (s Server) ListTweets(w http.ResponseWriter, r *http.Request) {
 	tweets, err := s.TweetReposity.Tweets()
 	if err != nil {
 		log.Println("Failed get tweets:", err)
@@ -79,20 +78,6 @@ func (s Server) listTweets(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Write(payload)
-}
-
-func (s Server) Tweets(w http.ResponseWriter, r *http.Request) {
-	start := time.Now()
-	defer func() {
-		duration := time.Since(start)
-		fmt.Printf("%s %s %s\n", r.Method, r.URL, duration)
-	}()
-
-	if r.Method == http.MethodPost {
-		s.addTweet(w, r)
-	} else if r.Method == http.MethodGet {
-		s.listTweets(w, r)
-	}
 }
 
 type Server struct {
